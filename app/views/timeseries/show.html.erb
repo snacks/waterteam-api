@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Integer:</strong>
+  <%= @timeseries.integer %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @timeseries.datetime %>
+</p>
+
+<p>
+  <strong>Double:</strong>
+  <%= @timeseries.double %>
+</p>
+
+<%= link_to 'Edit', edit_timeseries_path(@timeseries) %> |
+<%= link_to 'Back', timeseries_index_path %>
