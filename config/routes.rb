@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :uploads
   resources :notes
   resources :deployments
   resources :timeseries

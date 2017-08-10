@@ -61,6 +61,16 @@ class TimeseriesController < ApplicationController
     end
   end
 
+	# Upload File
+	def upload
+		# First save the file
+		# And actually, this should all happen in a files controller
+		
+		# Then insert all the data points
+		
+		# TODO: What do we want to return?  Just a 201.
+	end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_timeseries
