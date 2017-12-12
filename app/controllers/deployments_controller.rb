@@ -25,7 +25,7 @@ class DeploymentsController < ApplicationController
   # POST /deployments.json
   def create
     @deployment = Deployment.new(deployment_params)
-
+    Rails.logger.debug deployment_params
     respond_to do |format|
       if @deployment.save
         format.html { redirect_to @deployment, notice: 'Deployment was successfully created.' }
@@ -69,6 +69,6 @@ class DeploymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def deployment_params
-      params.require(:deployment).permit(:string)
+      params.require(:deployment).permit(:name)
     end
 end

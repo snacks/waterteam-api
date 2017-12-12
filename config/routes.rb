@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :uploads 
   resources :notes
-  resources :deployments
+  resources :deployments do
+    resources :devices
+  end
   resources :timeseries
   resources :sensors
   resources :devices

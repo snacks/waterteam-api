@@ -4,7 +4,11 @@ class DevicesController < ApplicationController
   # GET /devices
   # GET /devices.json
   def index
-    @devices = Device.all
+    unless params.nil?
+      @devices = Device.where(deployment_id: params[:deployment_id])
+    else
+      @devices = Device.all
+    end
   end
 
   # GET /devices/1
@@ -14,6 +18,7 @@ class DevicesController < ApplicationController
 
   # GET /devices/new
   def new
+    Rails.logger.debug params
     @device = Device.new
   end
 
