@@ -1,9 +1,9 @@
 class CreateNotes < ActiveRecord::Migration[5.1]
   def change
     create_table :notes do |t|
-      t.device_id :integer
-      t.timestamp :datetime
-      t.note :string
+      t.integer :device_id
+      t.datetime :timestamp
+      t.string :note
 
       t.timestamps
     end
