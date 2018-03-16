@@ -1,0 +1,18 @@
+%nav#site-nav.navbar.navbar-dark.navbar-expand-sm{role: "navigation"}
+  .navbar-header
+    = link_to root_path, class: "navbar-brand" do
+      = image_tag "logo-lg.png", alt: "Waterbear"
+      %span#site-title Waterbear
+  %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#water-navbar-collapse", "aria-expanded" => "false"}
+    %span.sr-only Toggle Navigation
+    %span.navbar-toggler-icon
+  #water-navbar-collapse.collapse.navbar-collapse
+    %ul.nav.navbar-nav
+      %li 
+        Login
+        %span.li-divide |&nbsp;
+      %li 
+        About
+        %span.li-divide |&nbsp; 
+      %li 
+        Blog

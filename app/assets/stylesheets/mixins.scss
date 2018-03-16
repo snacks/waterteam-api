@@ -1,0 +1,16 @@
+@mixin absolute-center {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+@mixin image-rendering {
+  image-rendering: -moz-crisp-edges;
+  image-rendering:   -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}

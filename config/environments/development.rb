@@ -39,10 +39,14 @@ Rails.application.configure do
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
 
+  config.web_console.whitelisted_ips = '192.168.0.0/16'
+
+
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  config.assets.prefix = "/assets_dev" ## fake directory so it can't find precompiled files
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true

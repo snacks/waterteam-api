@@ -10,6 +10,46 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
  */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "html5-reset-2016";
+@import "mixins";
+@import "variables";
+@import "bootstrap";
+@import "header";
+@import "home";
+
+html,body {
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+// global form styles
+label {
+  display: block;
+}
+
+.mobile-100 {
+  width: 100%;
+  @media (min-width: 768px) {
+    width: unset;
+  }
+}
+
+
+@media all and (min-width: 768px) {
+  .one-third {
+    width: 33%;
+  }
+
+  .two-thirds {
+    width: 67%;
+  }
+}
