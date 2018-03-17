@@ -46,10 +46,10 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-  config.assets.prefix = "/assets_dev" ## fake directory so it can't find precompiled files
+  # config.assets.compile = false
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  config.assets.quiet = false
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
