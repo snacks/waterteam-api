@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get "/register" => "authreg#new", as: "new_user_registration" # custom path to sign_up/registration
   end
 
-  devise_for :users
+  devise_for :users, :controllers => {:sessions => "sessions"}
   # devise_scope :user do
   #   authenticated :user do
   #     root 'home#index', as: :authenticated_root
