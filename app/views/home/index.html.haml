@@ -1,28 +1,42 @@
 = javascript_include_tag params[:controller]
 
 .row.m-0.flex-grow-full
-  #home-login.col-md-4.col-12.text-center
-    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-      .field.form-group
-        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+  - if !user_signed_in?
+    #home-login.col-md-4.col-12.text-center
+      -# login form
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .field.form-group
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
 
-      .field.form-group
-        = f.password_field :password, autocomplete: "off", placeholder: "Password"
+        .field.form-group
+          = f.password_field :password, autocomplete: "off", placeholder: "Password"
 
-      .actions
-        = f.submit "Log in" 
+        .actions
+          = f.submit "Log in" 
 
-      = link_to "Register", new_registration_path(resource_name)
+        = link_to "Register", new_registration_path(resource_name)
 
-  #home-map.col-md-8.p-0
-    .overlay.p-3.text-center
-      %h1 Waterbear
-      %h2 An Open Source Infrastructure for High Density Water Data Collection
-      .close X
-    #map
-    :javascript
-      mapboxgl.accessToken = 'pk.eyJ1IjoiYWZvYyIsImEiOiJjamV0Y3h1N3EwNGtkMndtcWlua3kwa2FiIn0.TZGi0N0OFoeN-mdK_gEF8g';
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/satellite-streets-v10'
-      });
+      -# not logged in devise notices / alerts
+      - if notice 
+        %p.alert.alert-info
+          = notice
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+      - if alert
+        %p.alert.alert-warning
+          = alert
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+    
+    -# right side map
+    #home-map.col-md-8.p-0
+      .overlay.p-3.text-center
+        %h1 Waterbear
+        %h2 An Open Source Infrastructure for High Density Water Data Collection
+        .close X
+      #map
+      :javascript
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWZvYyIsImEiOiJjamV0Y3h1N3EwNGtkMndtcWlua3kwa2FiIn0.TZGi0N0OFoeN-mdK_gEF8g';
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/satellite-streets-v10'
+        });
+  - else

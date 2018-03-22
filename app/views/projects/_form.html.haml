@@ -1,0 +1,17 @@
+= form_for @project, url: {action: "create"}, :html => {:class => "p-3 ml-auto mr-auto"} do |f|
+  %p Create new project
+  .field.form-group
+    = f.text_field :name, placeholder: "Project title"
+  .actions
+    = f.submit "Create"   
+  = link_to 'Back to Projects', projects_path 
+
+- if project.errors.any? 
+  #error_explanation
+    = pluralize(project.errors.count, "error") 
+    prohibited this project from being saved:
+    %ul
+      = project.errors.full_messages.each do |message| 
+        %li= message 
+
+  -# form_with(model: project, local: true) do |form| 

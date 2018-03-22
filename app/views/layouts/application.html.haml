@@ -16,14 +16,16 @@
     = render 'shared/header'
     
     -# flash messages for devise
-    -# these need to go somewhere else because they mess up the map size (map size does not recalibrate after hiding the notice)
-    - if notice 
-      %p.alert.alert-info
-        = notice
-        %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
-    - if alert
-      %p.alert.alert-warning
-        = alert
-        %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+    -# only show up here when user is signed in (different home page layout), if not signed in they appear in the left box of home page
+    -# otherwise they mess up the landing page map size (map size does not recalibrate after hiding the notice)
+    - if user_signed_in?
+      - if notice 
+        %p.alert.alert-info
+          = notice
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+      - if alert
+        %p.alert.alert-warning
+          = alert
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
 
     = yield      
