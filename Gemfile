@@ -39,6 +39,9 @@ gem 'jbuilder', '~> 2.5'
 # Use the latest rb-fsevent
 gem "rb-fsevent", "0.10.2"
 
+# MongoDB
+gem 'mongo', '~> 2.4'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
