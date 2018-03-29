@@ -43,12 +43,15 @@ class UploadsController < ApplicationController
 
       # Then insert all the data points
       options = {}
+      client = Mongo::Client.new('mongodb://127.0.0.1:27017/test')
+      collection = client[:probe_data]
       SmarterCSV.process(uploaded_filename, options) do |chunk|
         chunk.each do |data_hash|
           Rails.logger.debug data_hash
           Rails.logger.debug Time.at(data_hash[:time])
-          hash = Hash.new(timestamp:Time.at(data_hash[:time]),  data: data_hash[:data])
-          Timeseries.create!( hash )
+          result = collection.insert_one(data_hash)
+          #hash = Hash.new(timestamp:Time.at(data_hash[:time]),  data: data_hash[:data])
+          #timeseries = Timeseries.create!( hash )
         end
       end
 
