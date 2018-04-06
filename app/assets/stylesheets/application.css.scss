@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "html5-reset-2016";
+@import "mixins";
+@import "variables";
+@import "bootstrap";
+@import "header";
+@import "home";
+@import "projects";
+
+html,body {
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+// Typogrphay
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.17em; }
+h4 { font-size: 1.12em; }
+h5 { font-size: .83em; }
+h6 { font-size: .75em; }
+
+// global form styles
+label {
+  display: block;
+}
+
+// various utilities
+.overlay {
+  position: absolute;
+  z-index: 500;
+}
+
+.close {
+  padding: 5px;
+  text-shadow: none;
+}
+
+.alert {
+  margin-bottom: 0;
+
+  .close {
+    font-size: 1em;
+    line-height: 24px;
+    padding: 0;
+  }
+}

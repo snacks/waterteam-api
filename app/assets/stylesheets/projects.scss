@@ -1,0 +1,14 @@
+.project-row {
+  width: 100%;
+  height: 250px;
+  .project-img {
+    background-color: $light-grey;
+  }
+  .project-info {
+    border: 1px solid black;
+    .project-name {
+      font-weight: bold;
+    }
+  }
+}
+

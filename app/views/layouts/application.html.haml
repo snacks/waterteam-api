@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title 
+      =yield :title
+      AquariusApi
+    %meta{"http-equiv" =>"X-UA-Compatible", content: "IE=edge" }
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    - if (controller_name == 'home')
+      %script{"src" => "https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js"}
+      %link{"href" => "https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css", "rel" => "stylesheet"}
+  %body{"data-controller" => "#{controller_name}", "data-action" => "#{action_name}"}
+    = render 'shared/header'
+    
+    -# flash messages for devise
+    -# only show up here when user is signed in (different home page layout), if not signed in they appear in the left box of home page
+    -# otherwise they mess up the landing page map size (map size does not recalibrate after hiding the notice)
+    - if user_signed_in?
+      - if notice 
+        %p.alert.alert-info
+          = notice
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+      - if alert
+        %p.alert.alert-warning
+          = alert
+          %span.close{"onclick" => "$(this).closest('.alert').slideUp();"} x
+
+    = yield      

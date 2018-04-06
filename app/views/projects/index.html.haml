@@ -1,0 +1,17 @@
+.row.mt-3.mr-3.ml-3.justify-content-between
+  %p.mb-0 Search Projects
+  = link_to 'Create a new project', new_project_path
+.row.m-0
+  -# = @projects.each do |project|  
+  - @userprojects.each do |project|
+    .project-row.row.m-3
+      .project-img.col-md-8.col-12
+        -# placeholder img / map
+      .project-info.p-3.col-md-4.col-12
+        %p
+          %span.project-name= project.name
+          %span.created (created at #{project.created_at})
+        = link_to 'Show', project
+        = link_to 'Edit', edit_project_path(project)
+        = link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } 
+

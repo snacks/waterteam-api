@@ -3,7 +3,7 @@ class CreateTimeseries < ActiveRecord::Migration[5.1]
     create_table :timeseries do |t|
       t.integer :sensor_id
       t.datetime :timestamp
-      t.decimal :data
+      t.float :data
 
       t.timestamps
     end

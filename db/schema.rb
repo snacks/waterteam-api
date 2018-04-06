@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114005117) do
+ActiveRecord::Schema.define(version: 20180321194718) do
 
   create_table "deployments", force: :cascade do |t|
     t.string "name"
@@ -21,11 +21,10 @@ ActiveRecord::Schema.define(version: 20171114005117) do
   create_table "devices", force: :cascade do |t|
     t.string "uniqueIdentifier"
     t.string "type"
-    t.decimal "latitude"
-    t.decimal "longitude"
+    t.float "latitude"
+    t.float "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "deployment_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -34,6 +33,14 @@ ActiveRecord::Schema.define(version: 20171114005117) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "sensors", force: :cascade do |t|
@@ -47,16 +54,26 @@ ActiveRecord::Schema.define(version: 20171114005117) do
   create_table "timeseries", force: :cascade do |t|
     t.integer "sensor_id"
     t.datetime "timestamp"
-    t.decimal "data"
+    t.float "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "uploads", force: :cascade do |t|
-    t.string "filename"
-    t.boolean "processed"
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

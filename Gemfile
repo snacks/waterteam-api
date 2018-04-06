@@ -5,7 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+# User registration / authentication
+gem 'devise' 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use sqlite3 as the database for Active Record
@@ -18,6 +19,11 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+# use Haml for template processing
+gem 'haml'
+gem 'bootstrap', '~> 4.0'
+gem 'jquery-rails'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -32,6 +38,9 @@ gem 'jbuilder', '~> 2.5'
 
 # Use the latest rb-fsevent
 gem "rb-fsevent", "0.10.2"
+
+# MongoDB
+gem 'mongo', '~> 2.4'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
