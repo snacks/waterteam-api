@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Uploads</h1>
+<%= link_to 'DestroyALL', uploads_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <table>
   <thead>

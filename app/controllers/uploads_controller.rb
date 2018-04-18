@@ -1,4 +1,9 @@
+require 'mongo'
+require 'mongoconnect'
+require 'csv'
+
 class UploadsController < ApplicationController
+  skip_before_action :require_login, only: :create
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
 	protect_from_forgery :except => [:create]
 
@@ -28,38 +33,50 @@ class UploadsController < ApplicationController
   # Upload File
 	def create
 		# First save the file
-		Rails.logger.debug params	
-		uploaded_io = params[:file]
-		device_id = 'DUMMY_0000';
-		uploaded_filename = Rails.root.join('uploads', device_id +  uploaded_io.original_filename)
+		# Rails.logger.debug params	
+		uploaded_io = params[:upload]
+    # device_id = 'DUMMY_0000';
+    # site = params[:site] || "Unknown_Site"
+    # site += " - "
+		device_id = params[:device_id] || "Unknown_Probe" 
+    device_id += " - " 
+    uploaded_filename = Rails.root.join('uploads', device_id + uploaded_io.original_filename)
+
 		File.open(uploaded_filename, 'wb') do |file|
 			     file.write(uploaded_io.read)
 		end 
 		@upload = Upload.new(filename: device_id + uploaded_io.original_filename, processed: false)
 		@upload.save
 
+    # activate to later render the csv rows that get inserted into mongo
+    # jsonchunk = Array.new
 
     ActiveRecord::Base.transaction do
-
       # Then insert all the data points
-      options = {}
-      client = Mongo::Client.new('mongodb://127.0.0.1:27017/test')
-      collection = client[:probe_data]
-      SmarterCSV.process(uploaded_filename, options) do |chunk|
+      options = {:verbose => true, :chunk_size => 1, :row_sep => :auto}
+      # init the mongo connection & select collection
+      conn = Mongoconnect.new
+      probe_data = conn.probe_data
+      # needed to avoid processing errors w/ SmarterCSV
+      f = File.open(uploaded_io.tempfile, "r:bom|utf-8")
+      # counter for segmenting optional json return
+      # c = 1
+      SmarterCSV.process(f, options) do |chunk|
+        # d = 1
         chunk.each do |data_hash|
-          Rails.logger.debug data_hash
-          Rails.logger.debug Time.at(data_hash[:time])
-          result = collection.insert_one(data_hash)
+          # jsonchunk << {"#{c}-#{d}" => data_hash}
+          probe_data.insert_one(data_hash)
           #hash = Hash.new(timestamp:Time.at(data_hash[:time]),  data: data_hash[:data])
           #timeseries = Timeseries.create!( hash )
+          # d += 1
         end
+        # c += 1
       end
-
     end
-
-		
+	
 		# TODO: What do we want to return?  Just a 201.
-	  render json: {}, status: :created	
+    render json: {}, status: :created 
+    # render json: jsonchunk, status: :created 
 	end
 
 
@@ -101,6 +118,12 @@ class UploadsController < ApplicationController
     end
   end
 
+  # DELETE /uploads
+  def destroy_all
+    @uploads = Upload.all
+    @uploads.destroy_all
+    render action: 'index'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -111,5 +134,6 @@ class UploadsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def upload_params
       params.require(:upload).permit(:filename, :processed)
+      # params.require(:csv).require(:filename, :processed).merge(original_filename: params[:csv][:original_filename])
     end
 end

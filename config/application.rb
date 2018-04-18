@@ -13,6 +13,9 @@ module AquariusApi
     config.assets.precompile += %w( application.css application.js )
     config.assets.precompile += %w(home.js)
 
+    Mongoid.load! './config/mongoid.yml'
+    # Don't let Mongoid override the generators
+    config.generators.orm :active_record
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
