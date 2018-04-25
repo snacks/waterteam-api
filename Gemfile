@@ -20,6 +20,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# enable simple use of environmental variables
+gem 'dotenv-rails', groups: [:development]
+
 # use Haml for template processing
 gem 'haml'
 gem 'bootstrap', '~> 4.0'
