@@ -1,0 +1,23 @@
+= form_with(model: device, local: true) do |form|
+  - if device.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(device.errors.count, "error")
+        prohibited this device from being saved:
+      %ul
+        - device.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :uniqueIdentifier
+    = form.text_field :uniqueIdentifier, id: :device_uniqueIdentifier
+  .field
+    = form.label :type
+    = form.text_field :type, id: :device_type
+  .field
+    = form.label :latitude
+    = form.text_field :latitude, id: :device_latitude
+  .field
+    = form.label :longitude
+    = form.text_field :longitude, id: :device_longitude
+  .actions
+    = form.submit

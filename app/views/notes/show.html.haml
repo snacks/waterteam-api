@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Integer:
+  = @note.integer
+%p
+  %strong Datetime:
+  = @note.datetime
+%p
+  %strong String:
+  = @note.string
+= link_to 'Edit', edit_note_path(@note)
+|
+= link_to 'Back', notes_path

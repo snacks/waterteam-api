@@ -1,0 +1,4 @@
+= form_tag('/uploads', multipart: true) do
+  = file_field_tag 'upload'
+  .actions
+    = submit_tag "Upload"

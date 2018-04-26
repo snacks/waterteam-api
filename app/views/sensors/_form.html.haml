@@ -1,0 +1,20 @@
+= form_with(model: sensor, local: true) do |form|
+  - if sensor.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(sensor.errors.count, "error")
+        prohibited this sensor from being saved:
+      %ul
+        - sensor.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :integer
+    = form.text_field :integer, id: :sensor_integer
+  .field
+    = form.label :string
+    = form.text_field :string, id: :sensor_string
+  .field
+    = form.label :string
+    = form.text_field :string, id: :sensor_string
+  .actions
+    = form.submit

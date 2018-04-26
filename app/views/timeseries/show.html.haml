@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Integer:
+  = @timeseries.integer
+%p
+  %strong Datetime:
+  = @timeseries.datetime
+%p
+  %strong Double:
+  = @timeseries.double
+= link_to 'Edit', edit_timeseries_path(@timeseries)
+|
+= link_to 'Back', timeseries_index_path

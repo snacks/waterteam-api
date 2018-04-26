@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Integer:
+  = @sensor.integer
+%p
+  %strong String:
+  = @sensor.string
+%p
+  %strong String:
+  = @sensor.string
+= link_to 'Edit', edit_sensor_path(@sensor)
+|
+= link_to 'Back', sensors_path
