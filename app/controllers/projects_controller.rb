@@ -1,11 +1,22 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update]
+  # only project creator can destroy a project
+  before_action :set_project_destroy, only: :destroy
+  # before_action :set_creator, only: :create
 
   # GET /projects
   # GET /projects.json
   def index
     @projects = Project.all
-    @userprojects = current_user.projects
+    @created_projects = current_user.created_projects.all  # WORKING
+    @user_projects = current_user.projects
+    @user_associations = current_user.associations
+    # @user_associations.clear # this just replaces all the previously associated entries with "nil" for the user_id section
+    @associations = Association.all
+    # p "current user's projects: #{current_user.projects.inspect}"
+    p "current user's created projects: #{current_user.created_projects.inspect}"
+    # p "and associations: #{@user_associations.inspect}"
+    # p "all existing associations: #{@associations.inspect}"
   end
 
   # GET /projects/1
@@ -20,15 +31,26 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    @project = Project.find_by_id(params[:id])
+    respond_to do |format|
+      if @project.save
+        format.html { redirect_to projects_url, notice: 'Project was successfully edited.' }
+      end
+    end
   end
 
   # POST /projects
   # POST /projects.json
   def create
-    @project = current_user.projects.new(project_params)
+    @project = Project.new(project_params)
+    # assign creator to project (only user with permission to destroy)
+    @project.creator_id = current_user.id
+    p "creator was #{@project.creator_id}"
 
     respond_to do |format|
       if @project.save
+        @project.users << current_user
+        p "This user has #{current_user.projects.count} projects now"
         format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
         # format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
@@ -56,17 +78,43 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    # @project_associations = Association.find_by(project_id: @project.id)
     @project.destroy
+    p "This user has #{current_user.projects.count} projects now"
     respond_to do |format|
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
+  # DELETE /projects
+  def destroy_all
+    @projects = Project.all
+    @projects.delete_all
+    @associations = Association.all
+    @associations.delete_all
+    render action: 'index'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = current_user.projects.find(params[:id])
+      # We always want all projects visible, just not modifiable if not owner or member
+      @project = Project.find_by_id(params[:id])
+      p "Project selected: #{@project.inspect}"
+    end
+
+    def set_project_destroy
+      @project = current_user.projects.find_by(creator_id: current_user.id)
+      if @project.nil?
+        p "param id: #{params[:id]}"
+        redirect_to project_path(params[:id]), notice: "This is not your project to destroy."
+      end
+    end
+
+    def set_creator
+      project_params[:creator_id] = current_user.id
+      Rails.logger.debug project_params
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

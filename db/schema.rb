@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180321194718) do
+ActiveRecord::Schema.define(version: 20180502210858) do
+
+  create_table "associations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_associations_on_project_id"
+    t.index ["user_id"], name: "index_associations_on_user_id"
+  end
 
   create_table "deployments", force: :cascade do |t|
     t.string "name"
@@ -37,16 +46,26 @@ ActiveRecord::Schema.define(version: 20180321194718) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_projects_on_user_id"
+    t.integer "creator_id", null: false
   end
 
   create_table "sensors", force: :cascade do |t|
     t.integer "device_id"
     t.string "type"
     t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tag_uses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,3 +1,4 @@
 class Device < ApplicationRecord
-  belongs_to :deployment
+  belongs_to :project
+  has_many :notes
 end

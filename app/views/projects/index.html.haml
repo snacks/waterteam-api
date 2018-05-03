@@ -1,9 +1,12 @@
 .row.mt-3.mr-3.ml-3.justify-content-between
   %p.mb-0 Search Projects
+  = link_to 'DestroyALL', projects_path, method: :delete, data: { confirm: 'Are you sure?' }
   = link_to 'Create a new project', new_project_path
 .row.m-0
-  -# = @projects.each do |project|  
-  - @userprojects.each do |project|
+  - p "#{@current_user.email} has created #{@user_projects.count} project(s)"
+  / above is working, if i put @user_projects below it'll only list the ones where it is creator_id matching user_id
+  - @projects.each do |project| 
+    - p project.inspect
     .project-row.row.m-3
       .project-img.col-md-8.col-12
         -# placeholder img / map
