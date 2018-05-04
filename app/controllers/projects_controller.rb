@@ -8,14 +8,13 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
-    @created_projects = current_user.created_projects.all  # WORKING
+    # @created_projects = current_user.created_projects.all 
     @user_projects = current_user.projects
     @user_associations = current_user.associations
-    # @user_associations.clear # this just replaces all the previously associated entries with "nil" for the user_id section
-    @associations = Association.all
+    # @associations = Association.all
     # p "current user's projects: #{current_user.projects.inspect}"
     p "current user's created projects: #{current_user.created_projects.inspect}"
-    # p "and associations: #{@user_associations.inspect}"
+    p "and associations: #{@user_associations.inspect}"
     # p "all existing associations: #{@associations.inspect}"
   end
 
@@ -45,11 +44,13 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     # assign creator to project (only user with permission to destroy)
     @project.creator_id = current_user.id
+    # alternate way of saving user to project than below, this way can also assign creator boolean on join table
+    @project.associations.new(user: current_user, creator: true)
     p "creator was #{@project.creator_id}"
 
     respond_to do |format|
       if @project.save
-        @project.users << current_user
+        # @project.users << current_user
         p "This user has #{current_user.projects.count} projects now"
         format.html { redirect_to projects_url, notice: 'Project was successfully created.' }
         # format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -78,7 +79,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    # @project_associations = Association.find_by(project_id: @project.id)
     @project.destroy
     p "This user has #{current_user.projects.count} projects now"
     respond_to do |format|
@@ -91,8 +91,6 @@ class ProjectsController < ApplicationController
   def destroy_all
     @projects = Project.all
     @projects.delete_all
-    @associations = Association.all
-    @associations.delete_all
     render action: 'index'
   end
 

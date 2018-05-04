@@ -1,3 +1,18 @@
 = link_to 'Edit', edit_project_path(@project)
 |
 = link_to 'Back', projects_path
+/# - users = User.all
+%ul Users associated with this project:
+- @project.users.each do |user|
+  / = users.each do |user|
+  / = debug(user)
+  - if (user.created_by_invite? && user.invitation_accepted_at.nil?)
+    / %li= "#{user.email} (invited on #{user.invitation_sent_at} by #{user.invited_by_id})" 
+    %li= "#{user.email} (invited on: #{user.invitation_sent_at})"
+  - else
+    %li= "#{user.email}"
+
+%h4 Invite User
+= form_for [@project, Association.new] do |f|
+  = f.text_field :email, required: true
+  = f.submit "Invite"

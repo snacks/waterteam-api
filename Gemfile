@@ -7,6 +7,8 @@ end
 
 # User registration / authentication
 gem 'devise' 
+# Allows users to invite others to projects
+gem 'devise_invitable'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use sqlite3 as the database for Active Record

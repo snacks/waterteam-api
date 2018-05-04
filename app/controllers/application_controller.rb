@@ -4,8 +4,14 @@ class ApplicationController < ActionController::Base
   layout "application"
   protect_from_forgery with: :exception
 
+  include Current
+
   def after_sign_in_path_for(resource)
     projects_url
+  end
+
+  def set_current_user
+    Current.user = current_user
   end
 
   private
