@@ -1,6 +1,10 @@
 %nav#site-nav.navbar.navbar-dark.navbar-expand-sm{role: "navigation"}
   .navbar-header
-    = link_to root_path, class: "navbar-brand" do
+    - if user_signed_in?
+      - logopath = projects_path
+    - else
+      - logopath = root_path
+    = link_to logopath, class: "navbar-brand" do
       = image_tag "logo-lg.png", alt: "Waterbear"
       %span#site-title Waterbear
   %button.navbar-toggler{type: "button", "data-toggle" => "collapse", "data-target" => "#water-navbar-collapse", "aria-expanded" => "false"}
@@ -11,11 +15,13 @@
       %li 
         - if user_signed_in?
           = link_to "Logout", destroy_user_session_path, :method => :delete
+          %span.li-divide |&nbsp;
+          = link_to "My Account", edit_user_registration_path
         - else
           = link_to "Login", root_path
         %span.li-divide |&nbsp;
       %li 
-        About
+        About Waterbear
         %span.li-divide |&nbsp; 
       %li 
         Blog

@@ -6,7 +6,8 @@
   - p "#{@current_user.email} is associated with #{@user_projects.count} project(s)"
   / if @user_projects swapped in below it'll only list the ones with which the user is associated
   / or @created_projects to only display ones a user has created (for testing)
-  - @projects.each do |project| 
+  / or @projects to show all existing projects
+  - @user_projects.each do |project| 
     - p project.inspect
     .project-row.row.m-3
       .project-img.col-md-8.col-12

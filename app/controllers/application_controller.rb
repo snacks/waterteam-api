@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :require_login
+  before_action :configure_devise_params, if: :devise_controller?
 
   layout "application"
   protect_from_forgery with: :exception
@@ -21,4 +22,11 @@ class ApplicationController < ActionController::Base
       redirect_to root_url, :notice => "Login required for access"
     end
   end
+
+  def configure_devise_params
+    attributes = [:firstname, :lastname, :organization]
+    devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
+    devise_parameter_sanitizer.permit(:account_update, keys: attributes)
+  end
+
 end

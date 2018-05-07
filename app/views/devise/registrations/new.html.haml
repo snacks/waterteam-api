@@ -6,15 +6,25 @@
       = devise_error_messages!
 
       .field.form-group
-        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email"
+        = f.text_field :firstname, autofocus: true, autocomplete: "firstname", placeholder: "First Name", required: true
+
+      .field.form-group
+        = f.text_field :lastname, autocomplete: "lastname", placeholder: "Last Name", required: true
+
+      .field.form-group
+        = f.text_field :organization, autocomplete: "organization", placeholder: "Organization", required: true
+
+      .field.form-group
+        = f.email_field :email, autocomplete: "email", placeholder: "Email", required: true
 
       .field.form-group
         - if @minimum_password_length 
           - minlength = "(#{@minimum_password_length} characters minimum)"
-        = f.password_field :password, autocomplete: "off", placeholder: "#{minlength}"
+        = f.password_field :password, autocomplete: "off", placeholder: "Password", required: true
+        %p= minlength
 
       .field.form-group
-        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation"
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation", required: true
 
       .actions
         = f.submit "Sign up"
