@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :require_login
+  before_action :require_login, unless: :devise_controller?
   before_action :configure_devise_params, if: :devise_controller?
 
   layout "application"
