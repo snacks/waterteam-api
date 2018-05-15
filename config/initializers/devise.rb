@@ -18,8 +18,10 @@ Devise.setup do |config|
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
+  config.mailer = 'DeviseMailer'
 
   # Configure the parent class responsible to send e-mails.
+  # Turn this on once we have the domain registered with Mailgun
   # config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration

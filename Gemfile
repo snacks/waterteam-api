@@ -5,10 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# User registration / authentication
-gem 'devise' 
-# Allows users to invite others to projects
-gem 'devise_invitable'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use sqlite3 as the database for Active Record
@@ -21,6 +17,13 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+
+# User registration / authentication
+gem 'devise' 
+# Allows users to invite others to projects
+gem 'devise_invitable'
+# Send email through mailgun
+gem 'mailgun-ruby', '~>1.1.6'
 
 # enable simple use of environmental variables
 gem 'dotenv-rails', groups: [:development]

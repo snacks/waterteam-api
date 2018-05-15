@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :project_invited_to
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
