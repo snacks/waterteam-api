@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  skip_before_action :require_login
   before_action :set_project, only: [:show, :edit, :update]
   # only project creator can destroy a project
   before_action :set_project_destroy, only: :destroy

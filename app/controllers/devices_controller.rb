@@ -1,4 +1,5 @@
 class DevicesController < ApplicationController
+  skip_before_action :require_login
   before_action :set_device, only: [:show, :edit, :update, :destroy]
 
   # GET /devices
