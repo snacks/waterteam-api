@@ -1,11 +1,10 @@
 require 'mongo'
 require 'mongoconnect'
-require 'csv'
 
 class UploadsController < ApplicationController
   skip_before_action :require_login, only: :create
   before_action :set_upload, only: [:show, :edit, :update, :destroy]
-	protect_from_forgery :except => [:create]
+        protect_from_forgery :except => [:create]
 
   # GET /uploads
   # GET /uploads.json
@@ -29,24 +28,25 @@ class UploadsController < ApplicationController
 
   # POST /uploads
   # POST /uploads.json
-	#
+        #
   # Upload File
-	def create
-		# First save the file
-		# Rails.logger.debug params	
-		uploaded_io = params[:upload]
+  def create
+                # First save the file
+                # Rails.logger.debug params     
+    uploaded_io = params[:file]
+
     # device_id = 'DUMMY_0000';
     # site = params[:site] || "Unknown_Site"
     # site += " - "
-		device_id = params[:device_id] || "Unknown_Probe" 
+    device_id = params[:device_id] || "Unknown_Probe" 
     device_id += " - " 
     uploaded_filename = Rails.root.join('uploads', device_id + uploaded_io.original_filename)
 
-		File.open(uploaded_filename, 'wb') do |file|
-			     file.write(uploaded_io.read)
-		end 
-		@upload = Upload.new(filename: device_id + uploaded_io.original_filename, processed: false)
-		@upload.save
+    File.open(uploaded_filename, 'wb') do |file|
+        file.write(uploaded_io.read)
+    end 
+    @upload = Upload.new(filename: device_id + uploaded_io.original_filename, processed: false)
+    @upload.save
 
     # activate to later render the csv rows that get inserted into mongo
     # jsonchunk = Array.new
@@ -54,6 +54,7 @@ class UploadsController < ApplicationController
     ActiveRecord::Base.transaction do
       # Then insert all the data points
       options = {:verbose => true, :chunk_size => 1, :row_sep => :auto}
+
       # init the mongo connection & select collection
       conn = Mongoconnect.new
       probe_data = conn.probe_data
@@ -65,6 +66,7 @@ class UploadsController < ApplicationController
         # d = 1
         chunk.each do |data_hash|
           # jsonchunk << {"#{c}-#{d}" => data_hash}
+          Rails.logger.debug data_hash
           probe_data.insert_one(data_hash)
           #hash = Hash.new(timestamp:Time.at(data_hash[:time]),  data: data_hash[:data])
           #timeseries = Timeseries.create!( hash )
@@ -73,11 +75,11 @@ class UploadsController < ApplicationController
         # c += 1
       end
     end
-	
-		# TODO: What do we want to return?  Just a 201.
+        
+    # TODO: What do we want to return?  Just a 201.
     render json: {}, status: :created 
     # render json: jsonchunk, status: :created 
-	end
+  end
 
 
   def create_old_unused
