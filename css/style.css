@@ -94,8 +94,14 @@ background-color:#343a40;
 cursor:pointer;
 }
 
+#contact{
+text-align:center;
+}
+
 #contact img {
-    transition: all 0.23s ease-in-out 0s;
+	transition: all 0.23s ease-in-out 0s;
+	margin-bottom: 10px;
+	padding: 16px;   
 }
 
 
