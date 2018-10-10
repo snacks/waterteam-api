@@ -19,7 +19,7 @@
     <link href="css/carousel.css" rel="stylesheet">
    
     <!-- email signup -->
-    <link href="//cdn-images.mailchimp.com/embedcode/classic-10_7.css" rel="stylesheet" type="text/css">
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim--10_7.css" rel="stylesheet" type="text/css">
 
     <!-- waterbear styles -->
     <link href="css/style.css" rel="stylesheet">
@@ -42,7 +42,7 @@
               <a class="nav-link" href="#sonde">The Sonde</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <a class="nav-link" href="#contact">Contact</a>
             </li>
           </ul>
           
@@ -60,6 +60,8 @@
    </div>
 
 
+
+<div class="container">
       <!-- Marketing messaging and featurettes
       ================================================== -->
       <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -83,29 +85,33 @@
 
         <hr class="featurette-divider">
 
+</div>
         <!-- /END THE FEATURETTES -->
 
 
 <!-- email signup -->
-<div id="mc_embed_signup">
-<form action="https://github.us19.list-manage.com/subscribe/post?u=4bff8f5fa729c0ae0b7f64de1&amp;id=a1553e139a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+
+<div class="container marketing" id="contact">
+   <div id="mc_embed_signup">
+    <form action="https://github.us19.list-manage.com/subscribe/post?u=4bff8f5fa729c0ae0b7f64de1&amp;id=a1553e139a" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
-	<h2>Subscribe to our mailing list</h2>
-<div class="mc-field-group">
-	<label for="mce-EMAIL">Email Address </label>
-	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
-</div>
-	<div id="mce-responses" class="clear">
-		<div class="response" id="mce-error-response" style="display:none"></div>
-		<div class="response" id="mce-success-response" style="display:none"></div>
-	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_4bff8f5fa729c0ae0b7f64de1_a1553e139a" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
+	<label for="mce-EMAIL">Subscribe to our mailing list</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    	 <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    	<div style="position: absolute; left: -5000px;" aria-hidden="true">
+		<input type="text" name="b_4bff8f5fa729c0ae0b7f64de1_a1553e139a" tabindex="-1" value="">
+    	</div>
+    	<div class="clear">
+	<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+        </div>
+     </div>
+    </form>
+   </div>
+
 </div>
 
 
+  <hr class="featurette-divider">
 
 
 
@@ -117,7 +123,7 @@
       <!-- FOOTER -->
       <footer class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2017-2018 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p>&copy; 2017-2018 Waterbear &middot;<!-- <a href="#">Privacy</a> &middot; <a href="#">Terms</a>  --></p>
       </footer>
     </main>
 
@@ -129,7 +135,7 @@
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
-
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
 
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3NzbmFja3MiLCJhIjoiY2ptanQxMHZ6MDI0dzNrbGNlODg4NXprYiJ9.8Fl_Mzmv_jSApsyVW_lyfg';
@@ -152,7 +158,6 @@ map.addControl(new mapboxgl.GeolocateControl({
 }));
 </script>
 
-<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script>
 <script type='text/javascript'>(function($) {
 window.fnames = new Array(); 
 window.ftypes = new Array();
