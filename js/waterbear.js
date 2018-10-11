@@ -13,7 +13,7 @@ map.addSource('firstSonde', {
   type: 'geojson', 
   data: 'firstSonde.geojson' 
   }); 
-map.loadImage('../marker.svg', function(error, image) {
+map.loadImage('marker.svg', function(error, image) {
         if (error) throw error;
         map.addImage('marker', image);
 map.addLayer({ 
