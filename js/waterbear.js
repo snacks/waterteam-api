@@ -8,22 +8,23 @@ const map = new mapboxgl.Map({
   center: [-112.942500, 37.268600],
   zoom: 14.0
 });
-
-map.on('load', function () {
-map.addSource('firstSonde', {
-  type: 'geojson',
-  data: 'firstSonde.geojson'
-  });
-
-map.addLayer({
-	"id": "firstSonde",
-	"type": "circle",
-	"source": "firstSonde",
-	"paint": {
-	"circle-radius": 5,
-	"circle-color": "#ff0000"
-	}
-	});
+map.on('load', function () { 
+map.addSource('firstSonde', { 
+  type: 'geojson', 
+  data: 'firstSonde.geojson' 
+  }); 
+map.loadImage('../marker.svg', function(error, image) {
+        if (error) throw error;
+        map.addImage('marker', image);
+map.addLayer({ 
+        "id": "firstSonde", 
+        "type": "FeatureCollection", 
+        "source": "firstSonde", 
+        "layout": { 
+        "icon-image": "marker",
+	"icon-size": "0.25" 
+        } 
+        })
 });
 
 //zoom in double click, zoom out shift double click
@@ -37,6 +38,12 @@ map.addControl(new mapboxgl.GeolocateControl({
     },
     trackUserLocation: true
 }));
+ 
+
+});
+
+
+
 
 (function($) {
 window.fnames = new Array();
