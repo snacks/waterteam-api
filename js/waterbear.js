@@ -6,7 +6,7 @@ const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/sssnacks/cjn24qmxk6hax2rn62sjbysj7',
   center: [-112.942500, 37.268600],
-  zoom: 14.0
+  zoom: 12.0
 });
 map.on('load', function () { 
 map.addSource('firstSonde', { 
