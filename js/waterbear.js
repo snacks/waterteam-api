@@ -6,14 +6,14 @@ const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/sssnacks/cjn24qmxk6hax2rn62sjbysj7',
   center: [-112.942500, 37.268600],
-  zoom: 12.0
+  zoom: 13.0
 });
 map.on('load', function () { 
 map.addSource('firstSonde', { 
   type: 'geojson', 
-  data: 'firstSonde.geojson' 
+  data: 'https://snacks.github.io/waterteam-api/js/firstSonde.geojson' 
   }); 
-map.loadImage('marker.svg', function(error, image) {
+map.loadImage('https://snacks.github.io/waterteam-api/js/marker.svg', function(error, image) {
         if (error) throw error;
         map.addImage('marker', image);
 map.addLayer({ 
