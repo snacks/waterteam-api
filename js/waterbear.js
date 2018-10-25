@@ -2,30 +2,29 @@ $(document).ready(function() {
 
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3NzbmFja3MiLCJhIjoiY2ptanQxMHZ6MDI0dzNrbGNlODg4NXprYiJ9.8Fl_Mzmv_jSApsyVW_lyfg';
-const map = new mapboxgl.Map({
+var monument = [-112.942500, 37.268600];
+var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/sssnacks/cjn24qmxk6hax2rn62sjbysj7',
-  center: [-112.942500, 37.268600],
+  center: monument,
   zoom: 13.0
 });
-map.on('load', function () { 
-map.addSource('firstSonde', { 
-  type: 'geojson', 
-  data: 'https://snacks.github.io/waterteam-api/js/firstSonde.geojson' 
-  }); 
-map.loadImage('https://snacks.github.io/waterteam-api/js/marker.svg', function(error, image) {
-        if (error) throw error;
-        map.addImage('marker', image);
-map.addLayer({ 
-        "id": "firstSonde", 
-        "type": "FeatureCollection", 
-        "source": "firstSonde", 
-        "layout": { 
-        "icon-image": "marker",
-	"icon-size": "0.25" 
-        } 
-        })
-});
+
+
+// create the popup
+var popup = new mapboxgl.Popup({ offset: 25 })
+    .setText('Construction on the Washington Monument began in 1848.');
+
+// create DOM element for the marker
+var el = document.createElement('div');
+el.id = 'marker';
+
+// create the marker
+new mapboxgl.Marker(el)
+    .setLngLat(monument)
+    .setPopup(popup) // sets a popup on this marker
+    .addTo(map);
+
 
 //zoom in double click, zoom out shift double click
 map.addControl(new mapboxgl.NavigationControl());
