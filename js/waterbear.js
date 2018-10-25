@@ -6,25 +6,7 @@ const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/sssnacks/cjn24qmxk6hax2rn62sjbysj7',
   center: [-112.942500, 37.268600],
-  zoom: 12.0
-});
-map.on('load', function () { 
-map.addSource('firstSonde', { 
-  type: 'geojson', 
-  data: 'firstSonde.geojson' 
-  }); 
-map.loadImage('marker.svg', function(error, image) {
-        if (error) throw error;
-        map.addImage('marker', image);
-map.addLayer({ 
-        "id": "firstSonde", 
-        "type": "FeatureCollection", 
-        "source": "firstSonde", 
-        "layout": { 
-        "icon-image": "marker",
-	"icon-size": "0.25" 
-        } 
-        })
+  zoom: 13.0
 });
 
 //zoom in double click, zoom out shift double click
